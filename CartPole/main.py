@@ -11,11 +11,11 @@ if __name__ == '__main__':
     action_num = env.action_space.n
     memory_size = 500
     agent = Agent(state_dim, action_num,epsilon=0.6, memory_size=500, alpha=0.92, gamma=0.8, lr=0.002, batch_size=16)
-    agent.load("script/CartPole/dqn_model.pth")
+    # agent.load("script/CartPole/dqn_model.pth")
     reward_list_1 = []
     reward_list_2 = []
     
-    for epoch in range(100):
+    for epoch in range(300):
         state = env.reset()
         total_reward = 0.
         tr = 0
@@ -44,6 +44,7 @@ if __name__ == '__main__':
                 break
             state = new_state
 
+    plt.figure()
     plt.subplot(1,2,1)
     plt.plot(reward_list_1)
     plt.title("reward self-designed")
@@ -56,7 +57,7 @@ if __name__ == '__main__':
     plt.ylabel("reward")
     plt.xlabel("epoch")
 
-    plt.show()
     plt.savefig("script/CartPole/result.png")
+    plt.show()
     agent.save_model("script/CartPole/")
     env.close()
